@@ -17,7 +17,7 @@ jobs:
     - name: Setup C/C++ Compiler
       uses: rlalik/setup-cpp-compiler@v1.2
       with:
-        compiler: clang++-12
+        compiler: [latest,clang++-12]
 
     - name: Build
       run: make all
