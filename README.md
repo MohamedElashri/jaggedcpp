@@ -1,3 +1,5 @@
+[![Makefile Examples CI](https://github.com/MohamedElashri/jaggedcpp/actions/workflows/build.yml/badge.svg)](https://github.com/MohamedElashri/jaggedcpp/actions/workflows/build.yml)
+
 # Jagged Array C++ Library
 
 ## Description
