@@ -18,7 +18,7 @@ No documentation is available yet, but I am working on it. For now, you can chec
 
 ## Prerequisites
 
-- C++ Compiler with support for C++11 (e.g., `g++`)
+- C++ Compiler with support for C++17 (e.g., `g++`)
 
 ## Compilation
 
