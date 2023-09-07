@@ -8,17 +8,14 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        compiler: [latest,clang++-12]
     steps:
     - uses: actions/checkout@v2
 
     - name: Setup C/C++ Compiler
       uses: rlalik/setup-cpp-compiler@v1.2
       with:
-        matrix:
-          compiler: [latest,clang++-12]
-
-    - name: Build
-      run: make all
+        compiler: ${{ matrix.compiler }}
