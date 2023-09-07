@@ -394,6 +394,24 @@ void fill_none(const T& fill_value) {
     }
 }
 
+//Method goes through each element in the jagged array. 
+// If the element is std::nullopt, it adds true to the result. 
+// If the element is not std::nullopt, it adds false to the result
+std::vector<std::vector<bool>> is_none() const {
+    std::vector<std::vector<bool>> result;
+    for (const auto& row : data) {
+        std::vector<bool> rowResult;
+        for (const auto& element : row) {
+            if (element) {
+                rowResult.push_back(false);
+            } else {
+                rowResult.push_back(true);
+            }
+        }
+        result.push_back(rowResult);
+    }
+    return result;
+}
 
 
 

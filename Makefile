@@ -4,13 +4,13 @@ CFLAGS_11 = -std=c++11
 CFLAGS_17 = -std=c++17
 
 # Source files and target executables
-EXAMPLES = JaggedArray stat reduction concanate boolean_fancy sort mask
+EXAMPLES = JaggedArray stat reduction concanate boolean_fancy sort mask pad_none fill_none drop_none is_none
 SRC_DIR = examples
 OBJ_DIR = $(SRC_DIR)/obj
 
 # Mapping from source files to C++ standard
-CPP11_SOURCES = 
-CPP17_SOURCES =  mask stat JaggedArray  reduction sort concanate boolean_fancy
+CPP11_SOURCES =  
+CPP17_SOURCES =  JaggedArray stat reduction concanate boolean_fancy  mask pad_none fill_none drop_none is_none
 CPP23_SOURCES =
 
 # Rule to build all examples
