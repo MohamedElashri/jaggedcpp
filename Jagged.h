@@ -7,34 +7,45 @@
 #include <algorithm>
 #include <typeinfo>
 #include <numeric>
+#include <iterator>
+
 
 /*
 Avaiable Methods:
- - get(int outerIndex, int innerIndex): Retrieve the element at specified indices.
- - set(int outerIndex, int innerIndex, T value): Set the element at specified indices.
- - append(const std::vector<T>& newVec): Append a new inner vector to the jagged array.
- - flatten(): Flatten the jagged array into a single vector.
- - printMatrixForm(): Print the jagged array in matrix form.
- - reshape(size_t newSize, const T& padValue): Reshape each inner array to a specified size, padding with a default value.
- - pad(const T& padValue): Pad each inner array to the length of the longest inner array.
- - clip(size_t maxSize): Clip each inner array to a specified maximum size.
- - concat(const JaggedArray& other, int axis): Concatenate another JaggedArray along a specified axis.
- - len(): Get the length (number of rows).
- - shape(): Get the shape.
- - type(): Get the data type.
- - maskBasedOnSum(T threshold): Boolean masking based on the sum of the sub-array.
- - fancyIndexing(const std::vector<int>& indices): Fancy indexing.
- - all(): Boolean masking based on all elements.
- - any(): Boolean masking based on any elements.
- - sum(): Get the sum of all elements.
- - prod(): Get the product of all elements.
- - max(): Get the maximum element.
- - min(): Get the minimum element.
+- get(int outerIndex, int innerIndex): Retrieve the element at specified indices.
+- set(int outerIndex, int innerIndex, T value): Set the element at specified indices.
+- append(const std::vector<T>& newVec): Append a new inner vector to the jagged array.
+- flatten(): Flatten the jagged array into a single vector.
+- printMatrixForm(): Print the jagged array in matrix form.
+- reshape(size_t newSize, const T& padValue): Reshape each inner array to a specified size, padding with a default value.
+- pad(const T& padValue): Pad each inner array to the length of the longest inner array.
+- clip(size_t maxSize): Clip each inner array to a specified maximum size.
+- concat(const JaggedArray& other, int axis): Concatenate another JaggedArray along a specified axis.
+- len(): Get the length (number of rows).
+- shape(): Get the shape.
+- type(): Get the data type.
+- maskBasedOnSum(T threshold): Boolean masking based on the sum of the sub-array.
+- fancyIndexing(const std::vector<int>& indices): Fancy indexing.
+- all(): Boolean masking based on all elements.
+- any(): Boolean masking based on any elements.
+- sum(): Get the sum of all elements.
+- prod(): Get the product of all elements.
+- max(): Get the maximum element.
+- min(): Get the minimum element.
+- var(): Get the variance.
+- std(): Get the standard deviation.
+- mean(): Get the mean.
+- moment(int n): Get the nth moment.
+- sort(): Sort each inner vector in ascending order.
+- argsort(): Returns a new JaggedArray where each inner vector contains the indices that would sort it.
 */
 
 template <typename T>
 class JaggedArray {
 public:
+    // Default constructor
+    JaggedArray() : data(std::vector<std::vector<T>>()) {}
+
     // Constructor for initializing jagged array
     JaggedArray(const std::vector<std::vector<T>>& init_data) : data(init_data) {}
 
@@ -277,6 +288,45 @@ public:
         }
         return result;
     }
+/////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////     Sorting Methods         ////////////////////////
+
+    // Method to Sort each inner vector in ascending order.
+    void sort() {
+        for (auto& innerVec : data) {
+            std::sort(innerVec.begin(), innerVec.end());
+        }
+    }
+
+    // Method that returns a new JaggedArray where each inner vector contains the indices that would sort it.
+    JaggedArray<int> argsort() {
+        JaggedArray<int> sortedIndices;
+        for (const auto& innerVec : data) {
+            std::vector<int> indices(innerVec.size());
+            std::iota(indices.begin(), indices.end(), 0);
+            std::sort(indices.begin(), indices.end(),
+                      [&innerVec](int a, int b) { return innerVec[a] < innerVec[b]; });
+            sortedIndices.append(indices);
+        }
+        return sortedIndices;
+    }
+
+/////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////     I/O Methods         ////////////////////////
+
+    // Method to print the jagged array elements
+    void print() {
+        for (const auto& innerVec : data) {
+            for (const auto& element : innerVec) {
+                std::cout << element << ' ';
+            }
+            std::cout << '\n';
+        }
+    }
+
 /////////////////////////////////////////////////////////////////////////////////
 
 

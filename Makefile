@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -std=c++11
 
 # Source files and target executables
-EXAMPLES = JaggedArray stat reduction concanate boolean_fancy
+EXAMPLES = JaggedArray stat reduction concanate boolean_fancy sort
 SRC_DIR = examples
 OBJ_DIR = $(SRC_DIR)/obj
 
