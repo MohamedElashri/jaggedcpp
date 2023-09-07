@@ -8,7 +8,8 @@
 #include <typeinfo>
 #include <numeric>
 #include <iterator>
-
+#include <optional>
+#include <cmath>
 /*
 Avaiable Methods:
 - get(int outerIndex, int innerIndex): Retrieve the element at specified indices.
