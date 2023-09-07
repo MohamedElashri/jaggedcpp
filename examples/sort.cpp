@@ -1,12 +1,11 @@
 #include"../Jagged.h"
 
 int main() {
-    // Initialize a JaggedArray with integer type
-    JaggedArray<int> jaggedArray({{3, 1, 2}, {5, 4}, {9, 8, 7, 6}});
+    // Initialize a JaggedArray with std::optional<int> type
+    JaggedArray<std::optional<int>> jaggedArray({{3, 1, 2}, {5, 4}, {9, 8, 7, 6}});
 
     // Print the original JaggedArray
     std::cout << "Original JaggedArray: \n";
-    // (Assume a method print() exists in your JaggedArray class to print the jagged array)
     jaggedArray.print();
 
     // Sort each sub-array in ascending order
@@ -21,7 +20,12 @@ int main() {
 
     // Print the sorted indices
     std::cout << "Sorted Indices: \n";
-    sortedIndices.print();
+    for (const auto& row : sortedIndices.get_data()) {
+        for (const auto& element : row) {
+            std::cout << element << ' ';
+        }
+        std::cout << '\n';
+    }
 
     return 0;
 }

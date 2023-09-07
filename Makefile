@@ -10,7 +10,7 @@ OBJ_DIR = $(SRC_DIR)/obj
 
 # Mapping from source files to C++ standard
 CPP11_SOURCES =  
-CPP17_SOURCES =  JaggedArray stat reduction concanate boolean_fancy  mask pad_none fill_none drop_none is_none
+CPP17_SOURCES =  JaggedArray stat reduction concanate boolean_fancy  mask pad_none fill_none drop_none is_none sort
 CPP23_SOURCES =
 
 # Rule to build all examples

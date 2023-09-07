@@ -58,6 +58,10 @@ public:
         data.push_back(newRow);
     }
 
+    // Method to get data
+    const std::vector<std::vector<T>>& get_data() const {
+    return data;
+    }
     // Method to get an element from a specific row and column
     T get(int row, int col) const {
         if (row < 0 || row >= data.size() || col < 0 || col >= data[row].size()) {
