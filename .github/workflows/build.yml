@@ -1,0 +1,23 @@
+name: Makefile Examples CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup C/C++ Compiler
+      uses: rlalik/setup-cpp-compiler@v1.2
+      with:
+        compiler: latest
+
+    - name: Build
+      run: make all
