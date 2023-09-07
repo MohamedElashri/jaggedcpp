@@ -9,7 +9,6 @@
 #include <numeric>
 #include <iterator>
 
-
 /*
 Avaiable Methods:
 - get(int outerIndex, int innerIndex): Retrieve the element at specified indices.
@@ -38,6 +37,10 @@ Avaiable Methods:
 - moment(int n): Get the nth moment.
 - sort(): Sort each inner vector in ascending order.
 - argsort(): Returns a new JaggedArray where each inner vector contains the indices that would sort it.
+- mask(const std::vector<std::vector<bool>>& mask): Mask the jagged array based on a boolean mask.
+- drop_none(): Drop all the null values.
+- pad_none(size_t target_size): Pad each inner array to the length of the longest inner array.
+- fill_none(const T& fill_value): Fill all the null values with a specified value.
 */
 
 template <typename T>
@@ -290,7 +293,7 @@ public:
     }
 /////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////     Sorting Methods         ////////////////////////
+////////////////////////     Sorting Methods         ///////////////////////////
 
     // Method to Sort each inner vector in ascending order.
     void sort() {
@@ -315,21 +318,87 @@ public:
 /////////////////////////////////////////////////////////////////////////////////
 
 
-//////////////////////////     I/O Methods         ////////////////////////
+//////////////////////////     I/O Methods         /////////////////////////////
 
     // Method to print the jagged array elements
-    void print() {
-        for (const auto& innerVec : data) {
-            for (const auto& element : innerVec) {
-                std::cout << element << ' ';
+void print() const {
+    for (const auto& row : data) {
+        for (const auto& element : row) {
+            if (element) {
+                std::cout << *element << ' ';
+            } else {
+                std::cout << "nullopt ";
             }
-            std::cout << '\n';
+        }
+        std::cout << '\n';
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////     Missing values Methods         ////////////////////////
+
+// Method to mask the jagged array based on a boolean mask
+JaggedArray<std::optional<T>> mask(const std::vector<std::vector<bool>>& mask) {
+    JaggedArray<std::optional<T>> result;
+    for (size_t i = 0; i < data.size(); ++i) {
+        std::vector<std::optional<T>> maskedRow;
+        for (size_t j = 0; j < data[i].size(); ++j) {
+            if (mask[i][j]) {
+                maskedRow.push_back(data[i][j]);
+            } else {
+                maskedRow.push_back(std::nullopt);
+            }
+        }
+        result.append(maskedRow);
+    }
+    return result;
+}
+
+// Method to drop all the null values
+JaggedArray<T> drop_none() {
+    JaggedArray<T> result;
+    for (const auto& row : data) {
+        std::vector<T> newRow;
+        for (const auto& val : row) {
+            if (val) {
+                newRow.push_back(val.value());
+            }
+        }
+        result.append(newRow);
+    }
+    return result;
+}
+
+
+// Method to pad each inner array to the length of the longest inner array
+
+void pad_none(size_t target_size) {
+    for (auto& row : data) {
+        while (row.size() < target_size) {
+            row.push_back(std::nullopt);
         }
     }
+}
 
-/////////////////////////////////////////////////////////////////////////////////
+// Method to fill all the null values with a specified value
+
+void fill_none(const T& fill_value) {
+    for (auto& row : data) {
+        for (auto& val : row) {
+            if (!val.has_value()) {
+                val = fill_value;
+            }
+        }
+    }
+}
 
 
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
 private:
     std::vector<std::vector<T>> data;
 };
