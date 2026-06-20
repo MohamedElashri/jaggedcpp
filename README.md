@@ -256,7 +256,7 @@ auto pieces = ak::str::split_pattern(words, " ");
 auto rebuilt = ak::str::join(pieces, "-");
 ```
 
-Phase 9 string classification, casing, slicing, and reversal are deterministic
+String classification, casing, slicing, and reversal are deterministic
 byte-level operations: ASCII follows the corresponding Python string behavior,
 while non-ASCII UTF-8 bytes are preserved by case transforms and rejected by
 classification predicates other than `is_ascii`. Slicing and reversal can split
@@ -285,4 +285,4 @@ Bad construction input throws `std::invalid_argument`. Bad row or column indexin
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the BSD 3-Clause License. See [LICENSE](LICENSE) for details.
