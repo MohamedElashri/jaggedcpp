@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/jaggedTargets.cmake")
+
+# Keep the installed target aligned with the primary ak::* API while retaining
+# jagged::jagged for existing downstream consumers.
+if(NOT TARGET awkward::awkward)
+  add_library(awkward::awkward INTERFACE IMPORTED)
+  set_property(
+    TARGET awkward::awkward
+    PROPERTY INTERFACE_LINK_LIBRARIES jagged::jagged)
+endif()
+
+check_required_components(jaggedcpp)

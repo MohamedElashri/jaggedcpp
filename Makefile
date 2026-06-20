@@ -1,40 +1,21 @@
-# Compiler settings
-CC = g++
-CFLAGS_11 = -std=c++11
-CFLAGS_17 = -std=c++17
+BUILD_DIR ?= build
+CMAKE ?= cmake
 
-# Source files and target executables
-EXAMPLES = JaggedArray stat reduction concanate boolean_fancy sort mask pad_none fill_none drop_none is_none
-SRC_DIR = examples
-OBJ_DIR = $(SRC_DIR)/obj
+.PHONY: all configure build test install clean
 
-# Mapping from source files to C++ standard
-CPP11_SOURCES =  
-CPP17_SOURCES =  JaggedArray stat reduction concanate boolean_fancy  mask pad_none fill_none drop_none is_none sort
-CPP23_SOURCES =
+all: build
 
-# Rule to build all examples
-all: $(EXAMPLES)
+configure:
+	$(CMAKE) -S . -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=Debug
 
-# Generic rule to build a C++11 example
-$(CPP11_SOURCES): %: $(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS_11) $< -o $(OBJ_DIR)/$@
+build: configure
+	$(CMAKE) --build $(BUILD_DIR)
 
-# Generic rule to build a C++17 example
-$(CPP17_SOURCES): %: $(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS_17) $< -o $(OBJ_DIR)/$@
+test: build
+	ctest --test-dir $(BUILD_DIR) --output-on-failure
 
-# Generic rule to build a C++23 example
-$(CPP23_SOURCES): %: $(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS_23) $< -o $(OBJ_DIR)/$@	
- 
-# Add the EXAMPLES dependencies
-$(EXAMPLES): | $(OBJ_DIR)
+install: build
+	$(CMAKE) --install $(BUILD_DIR)
 
-# Rule to clean up
 clean:
-	rm -f $(OBJ_DIR)/*
-
-# Create obj directory if it doesn't exist
-$(OBJ_DIR):
-	mkdir -p $@
+	$(CMAKE) -E rm -rf $(BUILD_DIR)

@@ -1,1 +1,6 @@
 **/obj/
+build/
+build-golden/
+build-sanitized/
+cmake-build-*/
+plan*
