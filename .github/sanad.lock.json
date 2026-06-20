@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "generated_by": "sanad",
+  "entries": [
+    {
+      "file": ".github/workflows/build.yml",
+      "node": "jobs.build.steps[0].uses",
+      "owner": "actions",
+      "repo": "checkout",
+      "path": "",
+      "kind": "github-action",
+      "logical_ref": "v7.0.0",
+      "pinned_sha": "34e114876b0b11c390a56381ad16ebd13914f8d5",
+      "candidate_sha": "9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0",
+      "candidate_seen_at": "2026-06-18T13:53:05Z",
+      "resolved_at": "2026-06-20T09:08:33Z",
+      "timestamp": "2026-06-18T13:53:05Z",
+      "timestamp_source": "release"
+    },
+    {
+      "file": ".github/workflows/build.yml",
+      "node": "jobs.build.steps[5].uses",
+      "owner": "actions",
+      "repo": "upload-artifact",
+      "path": "",
+      "kind": "github-action",
+      "logical_ref": "v7.0.1",
+      "pinned_sha": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+      "resolved_at": "2026-06-20T09:08:33Z",
+      "timestamp": "2026-04-10T17:31:14Z",
+      "timestamp_source": "release"
+    },
+    {
+      "file": ".github/workflows/build.yml",
+      "node": "jobs.sanitizers.steps[0].uses",
+      "owner": "actions",
+      "repo": "checkout",
+      "path": "",
+      "kind": "github-action",
+      "logical_ref": "v7.0.0",
+      "pinned_sha": "34e114876b0b11c390a56381ad16ebd13914f8d5",
+      "candidate_sha": "9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0",
+      "candidate_seen_at": "2026-06-18T13:53:05Z",
+      "resolved_at": "2026-06-20T09:08:33Z",
+      "timestamp": "2026-06-18T13:53:05Z",
+      "timestamp_source": "release"
+    }
+  ]
+}
