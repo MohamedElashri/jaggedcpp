@@ -5,33 +5,6 @@ rows can have different lengths. Its primary interface is the Awkward
 Array-inspired `ak::*` API, built around immutable layouts, validated buffers,
 checked access, and simple CMake packaging.
 
-## Features
-
-- Initial Awkward-style `ak::Array` wrapper over immutable layouts.
-- Low-level `ak::Content` nodes for `EmptyArray`, `NumpyArray<T>`, `ListOffsetArray<T>`, and `RegularArray<T>`.
-- `ak::from_iter`, `ak::to_list`, `ak::num`, `ak::flatten`, `ak::ravel`, `ak::unflatten`, `ak::to_packed`, `ak::is_valid`, and `ak::validity_error` for the initial layouts.
-- Checked `ak::Array::at(...)`, explicit `ak::index::*` row/nested slicing, flat and ragged boolean masks, and `ak::local_index` for the initial layouts.
-- Awkward-style missing values through `IndexedOptionArray`, `ByteMaskedArray`, `BitMaskedArray`, `UnmaskedArray`, `ak::none`, `ak::mask`, `ak::is_none`, `ak::drop_none`, `ak::pad_none`, `ak::fill_none`, `ak::nan_to_none`, and `ak::nan_to_num` for the implemented layouts.
-- Awkward-style reducers, statistics, sorting, argsort, softmax, and `nan*`
-  reducers across recursive list axes through option structs for `axis`,
-  `keepdims`, `mask_identity`, and related parameters.
-- Awkward-style records through `RecordArray`, `ak::Record`, `ak::zip`, `ak::zip_no_broadcast`, `ak::unzip`, field projection, `ak::with_field`, `ak::without_field`, and `ak::with_name`.
-- Awkward-style broadcasting and elementwise operations through `ak::broadcast_arrays`, `ak::broadcast_fields`, arithmetic/comparison/logical functions, `ak::where`, `ak::isclose`, equality helpers, and like-shaped constructors.
-- Layout-native carry, mask, numeric unary/binary, and axis-0 concatenation kernels that retain compatible primitive, list-offset, and regular forms.
-- Awkward-style buffer/form interop through `ak::to_buffers`, `ak::from_buffers`, stable form keys, typed buffer containers, and deterministic packed output for implemented layouts.
-- Versioned strict form JSON plus deterministic binary `ak::BufferMap` persistence.
-- Concrete `ak::*Type` objects, `ak::Scalar`, array dimensionality, attrs, and
-  named-axis metadata, typed values/views, and explicit scalar-or-array reducer results.
-- Low-level `ListArray`, `IndexedArray`, and generic regular-content layouts in
-  addition to compact list-offset and primitive regular layouts.
-- `ak::concatenate`, recursive-axis reducers/sorting/softmax, and unambiguous
-  C++ arithmetic/comparison operators.
-- Append-only mixed and nested construction through `ak::ArrayBuilder`, with immutable snapshots and union layouts for heterogeneous values.
-- Awkward-style UTF-8 byte-buffer string layouts plus `ak::str::*` predicates, case transforms, byte slicing/reversal, literal splitting/joining, and substring tests.
-- Legacy `jagged::Array<T>` retained for existing flat-offset container users.
-- Preferred header-only CMake target: `awkward::awkward`.
-- Backward-compatible CMake target: `jagged::jagged`.
-
 ## Requirements
 
 - C++20 compiler.
