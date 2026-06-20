@@ -48,23 +48,78 @@ Existing `jagged::Array<T>` users can follow the
 [migration guide](docs/migrating-from-jagged-array.md) to move to the primary
 `ak::*` API.
 
-## Use In CMake
+## Installation & Usage
 
-After installing:
+Because `jaggedcpp` is a header-only library, we distribute a single-header version that is incredibly easy to use.
 
-```bash
-cmake --install build --prefix /path/to/prefix
+### 1. Single Header (Easiest)
+
+The absolute simplest way to use `jaggedcpp` is to download the `awkward.h` file from the root of this repository and drop it directly into your project's source tree.
+
+You do not need to configure CMake or install anything system-wide.
+
+```cpp
+#include "awkward.h"
+
+int main() {
+    auto array = ak::from_iter({1, 2, 3});
+    // ...
+}
 ```
 
-Use the package from another project:
+*Note for developers: If you modify the library's internal headers, you can regenerate this file by running `python scripts/amalgamate.py`.*
+
+### 2. FetchContent (Modern CMake)
+
+If you prefer to manage dependencies via CMake, `FetchContent` will automatically download the library at configure time. Examples and tests are automatically disabled.
+
+```cmake
+include(FetchContent)
+
+FetchContent_Declare(
+    jaggedcpp
+    GIT_REPOSITORY https://github.com/scikit-hep/jaggedcpp.git
+    GIT_TAG        main # or a specific version tag
+)
+FetchContent_MakeAvailable(jaggedcpp)
+
+# Link to your target
+target_link_libraries(my_target PRIVATE awkward::awkward)
+```
+
+### 3. Git Submodule & `add_subdirectory`
+
+If you vendor your dependencies or use git submodules:
+
+```bash
+git submodule add https://github.com/scikit-hep/jaggedcpp.git third_party/jaggedcpp
+```
+
+```cmake
+add_subdirectory(third_party/jaggedcpp)
+
+# Link to your target
+target_link_libraries(my_target PRIVATE awkward::awkward)
+```
+
+### 4. System Install
+
+You can build and install the package system-wide (or to a specific prefix) and find it using `find_package`:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+cmake --install build --prefix /path/to/my/prefix
+```
+
+Then in your `CMakeLists.txt`:
 
 ```cmake
 find_package(jaggedcpp CONFIG REQUIRED)
 target_link_libraries(my_target PRIVATE awkward::awkward)
 ```
 
-The package remains named `jaggedcpp`. The `jagged::jagged` target is retained
-for existing consumers and exposes the same installed headers.
+> **Note**: For backward compatibility, the library name remains `jaggedcpp` and provides a legacy `jagged::jagged` alias pointing to the same headers.
 
 ## Basic Example
 

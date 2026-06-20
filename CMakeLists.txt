@@ -18,8 +18,14 @@ target_include_directories(
   INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-option(JAGGEDCPP_BUILD_EXAMPLES "Build jaggedcpp examples" ON)
-option(JAGGEDCPP_BUILD_TESTS "Build jaggedcpp tests" ON)
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  set(JAGGEDCPP_IS_TOP_LEVEL ON)
+else()
+  set(JAGGEDCPP_IS_TOP_LEVEL OFF)
+endif()
+
+option(JAGGEDCPP_BUILD_EXAMPLES "Build jaggedcpp examples" ${JAGGEDCPP_IS_TOP_LEVEL})
+option(JAGGEDCPP_BUILD_TESTS "Build jaggedcpp tests" ${JAGGEDCPP_IS_TOP_LEVEL})
 option(JAGGEDCPP_AWKWARD_GOLDEN_TESTS "Run Python Awkward golden fixture generation tests" OFF)
 option(JAGGEDCPP_ENABLE_SANITIZERS "Enable AddressSanitizer and UndefinedBehaviorSanitizer" OFF)
 
