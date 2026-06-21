@@ -78,7 +78,7 @@ include(FetchContent)
 
 FetchContent_Declare(
     jaggedcpp
-    GIT_REPOSITORY https://github.com/scikit-hep/jaggedcpp.git
+    GIT_REPOSITORY https://github.com/MohamedElashri/jaggedcpp.git
     GIT_TAG        main # or a specific version tag
 )
 FetchContent_MakeAvailable(jaggedcpp)
@@ -92,7 +92,7 @@ target_link_libraries(my_target PRIVATE awkward::awkward)
 If you vendor your dependencies or use git submodules:
 
 ```bash
-git submodule add https://github.com/scikit-hep/jaggedcpp.git third_party/jaggedcpp
+git submodule add https://github.com/MohamedElashri/jaggedcpp.git third_party/jaggedcpp
 ```
 
 ```cmake
